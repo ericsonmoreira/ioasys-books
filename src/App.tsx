@@ -1,15 +1,15 @@
-import { CssBaseline, Typography } from '@mui/material';
+import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/system';
-import BasicLayout from './layouts/BasicLayout';
+import { BrowserRouter } from 'react-router-dom';
+import { MainRoutes } from './routes';
 import { theme } from './theme';
-
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <BasicLayout>
-        <CssBaseline />
-        <Typography>Ola mundo</Typography>
-      </BasicLayout>
+      <CssBaseline />
+      <BrowserRouter>
+        <MainRoutes />
+      </BrowserRouter>
     </ThemeProvider>
   );
 }
