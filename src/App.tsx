@@ -1,7 +1,13 @@
-import BasicLayout from "./layouts/BasicLayout";
+import { CssBaseline } from '@mui/material';
+import BasicLayout from './layouts/BasicLayout';
 
 function App() {
-  return <BasicLayout>Ola mundo</BasicLayout>;
+  return (
+    <BasicLayout>
+      <CssBaseline />
+      Ola mundo
+    </BasicLayout>
+  );
 }
 
 export default App;

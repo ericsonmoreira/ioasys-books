@@ -1,4 +1,4 @@
-import { Container } from "./styles";
+import { Container } from './styles';
 
 const BasicLayout: React.FC = (props) => {
   const { children } = props;
