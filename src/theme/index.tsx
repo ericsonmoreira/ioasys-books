@@ -6,4 +6,7 @@ export const theme = createTheme({
       main: '#AB2680',
     },
   },
+  typography: {
+    fontFamily: 'Heebo',
+  },
 });
