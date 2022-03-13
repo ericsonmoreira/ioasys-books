@@ -1,6 +1,5 @@
-// import { Container } from './styles';
-
 import { Typography } from '@mui/material';
+// import { Container } from './styles';
 
 const HomePage: React.FC = () => {
   return (

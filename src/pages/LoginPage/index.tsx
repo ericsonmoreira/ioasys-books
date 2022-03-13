@@ -1,16 +1,15 @@
-import { Typography } from '@mui/material';
-import logoSVG from '../../assets/logo.svg';
+import { TextField } from '@mui/material';
+import Logo from '../../components/Logo';
 import BasicLayout from '../../layouts/BasicLayout';
-import { LogoWrapper } from './styles';
 
 const LoginPage: React.FC = () => {
   return (
     <BasicLayout>
-      <LogoWrapper>
-        <img src={logoSVG} />
-        <Typography variant='h4'>Books</Typography>
-      </LogoWrapper>
-      <Typography>Login</Typography>
+      <Logo />
+      <form>
+        <TextField label="Email" variant="standard" />
+        <TextField label="Senha" variant="standard" type="password" />
+      </form>
     </BasicLayout>
   );
 };
