@@ -1,12 +1,16 @@
-import { CssBaseline } from '@mui/material';
+import { CssBaseline, Typography } from '@mui/material';
+import { ThemeProvider } from '@mui/system';
 import BasicLayout from './layouts/BasicLayout';
+import { theme } from './theme';
 
 function App() {
   return (
-    <BasicLayout>
-      <CssBaseline />
-      Ola mundo
-    </BasicLayout>
+    <ThemeProvider theme={theme}>
+      <BasicLayout>
+        <CssBaseline />
+        <Typography>Ola mundo</Typography>
+      </BasicLayout>
+    </ThemeProvider>
   );
 }
 
