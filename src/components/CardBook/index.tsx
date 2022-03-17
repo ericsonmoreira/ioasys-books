@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import { CardProps, Typography } from '@mui/material';
 import { Book } from '../../services/getBooks';
 import {
   Container,
@@ -10,7 +10,7 @@ import {
 } from './styles';
 import noImgBook from '../../assets/no-book-img.png';
 
-interface CardBookProps {
+interface CardBookProps extends CardProps {
   book: Book;
 }
 
