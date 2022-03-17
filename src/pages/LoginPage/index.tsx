@@ -5,6 +5,7 @@ import BasicLayout from '../../layouts/BasicLayout';
 import Button from '@mui/material/Button';
 import { yupResolver } from '@hookform/resolvers/yup';
 import schema from './schema';
+import { useAuth } from '../../hooks/useAuth';
 
 interface LoginPageFromData {
   email: string;
@@ -12,6 +13,8 @@ interface LoginPageFromData {
 }
 
 const LoginPage: React.FC = () => {
+  const { signIn } = useAuth();
+
   const {
     register,
     handleSubmit,
@@ -24,8 +27,8 @@ const LoginPage: React.FC = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
+  const onSubmit = handleSubmit(async ({ email, password }) => {
+    await signIn({ email, password });
   });
 
   return (

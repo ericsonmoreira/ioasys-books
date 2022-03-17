@@ -1,16 +1,11 @@
 import { createContext, useCallback } from 'react';
 import api from '../api';
+import constants from '../constants';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 
-const LH_USER_NAME = 'ioasys-books:user';
+export type TokenState = string | null;
 
-const LH_TOKEN_NAME = 'ioasys-books:token';
-
-const LH_REFRESH_TOKEN_NAME = 'ioasys-books:refresh-token';
-
-type TokenState = string | null;
-
-type UserState = UserData | null;
+export type UserState = UserData | null;
 
 export interface UserData {
   id: string;
@@ -33,25 +28,38 @@ export interface AuthContextState {
   signOut(): void;
 }
 
-export const AuthContext = createContext<AuthContextState>({} as AuthContextState);
+export const AuthContext = createContext<AuthContextState>(
+  {} as AuthContextState
+);
 
 export const AuthProvider: React.FC = ({ children }) => {
-  const [user, setUser] = useLocalStorage<UserState>(LH_USER_NAME, null);
+  const [user, setUser] = useLocalStorage<UserState>(
+    constants.LH_USER_NAME,
+    null
+  );
 
-  const [token, setToken] = useLocalStorage<TokenState>(LH_TOKEN_NAME, null);
+  const [token, setToken] = useLocalStorage<TokenState>(
+    constants.LH_TOKEN_NAME,
+    null
+  );
 
   const [refreshToken, setRefreshToken] = useLocalStorage<TokenState>(
-    LH_REFRESH_TOKEN_NAME,
+    constants.LH_REFRESH_TOKEN_NAME,
     null
   );
 
   const signIn = useCallback(async ({ email, password }: SignInData) => {
-    const response = await api.post('/auth/sign-in', {
+    const { data, headers } = await api.post('/auth/sign-in', {
       email,
       password,
     });
 
-    console.log(JSON.stringify(response.headers, undefined, 2));
+    console.log(JSON.stringify(headers, undefined, 2));
+
+    setToken(headers.authorization);
+    setRefreshToken(headers['refresh-token']);
+
+    setUser(data);
   }, []);
 
   const signOut = useCallback(async () => {
