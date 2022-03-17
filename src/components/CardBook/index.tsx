@@ -27,7 +27,7 @@ const CardBook: React.FC<CardBookProps> = (props) => {
           <InfoSection>
             <Typography variant="subtitle1">{book.title}</Typography>
             <Typography variant="subtitle2" color="primary">
-              {book.authors || 'Unknown Author'}
+              {book.authors.join(', ') || 'Unknown Author'}
             </Typography>
           </InfoSection>
           <InfoSection>
