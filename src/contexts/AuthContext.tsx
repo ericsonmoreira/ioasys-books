@@ -53,19 +53,20 @@ export const AuthProvider: React.FC = ({ children }) => {
       email,
       password,
     });
-
-    console.log(JSON.stringify(headers, undefined, 2));
+    
+    setUser(data);
 
     setToken(headers.authorization);
-    setRefreshToken(headers['refresh-token']);
 
-    setUser(data);
+    setRefreshToken(headers['refresh-token']);
   }, []);
 
   const signOut = useCallback(async () => {
-    setToken(null);
-    setRefreshToken(null);
     setUser(null);
+
+    setToken(null);
+
+    setRefreshToken(null);
   }, []);
 
   return (

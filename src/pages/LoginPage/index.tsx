@@ -6,6 +6,8 @@ import Button from '@mui/material/Button';
 import { yupResolver } from '@hookform/resolvers/yup';
 import schema from './schema';
 import { useAuth } from '../../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
+import { ROUTER_NAMES } from '../../routes/names';
 
 interface LoginPageFromData {
   email: string;
@@ -14,6 +16,8 @@ interface LoginPageFromData {
 
 const LoginPage: React.FC = () => {
   const { signIn } = useAuth();
+
+  const navigate = useNavigate();
 
   const {
     register,
@@ -28,7 +32,13 @@ const LoginPage: React.FC = () => {
   });
 
   const onSubmit = handleSubmit(async ({ email, password }) => {
-    await signIn({ email, password });
+    try {
+      await signIn({ email, password });
+
+      navigate(ROUTER_NAMES.HOME);
+    } catch (error) {
+      console.log(error);
+    }
   });
 
   return (
