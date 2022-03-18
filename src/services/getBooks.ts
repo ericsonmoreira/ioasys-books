@@ -15,7 +15,7 @@ export interface Book {
   published: number;
 }
 
-export interface UseGetBooksData {
+export interface GetBooksData {
   data: Book[];
   page: number;
   totalPages: number;
@@ -31,7 +31,7 @@ export interface GetBooksQueryParams {
 
 export const getBooks = async (
   params: GetBooksQueryParams
-): Promise<UseGetBooksData> => {
+): Promise<GetBooksData> => {
   const { data } = await api.get('/books', { params });
   return data;
 };

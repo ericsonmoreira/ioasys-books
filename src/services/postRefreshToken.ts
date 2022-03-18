@@ -1,17 +1,21 @@
 import api from '../api';
-import constants from '../constants';
 
-export const postRefreshToken = async () => {
-  const refreshToken = window.localStorage.getItem(
-    constants.LH_REFRESH_TOKEN_NAME
-  ) as string;
+interface PostRefreshTokenParams {
+  refreshToken: string | undefined;
+}
 
+interface PostRefreshTokenData {
+  newToken: string;
+  newRefreshToken: string;
+}
+
+export const postRefreshToken = async ({
+  refreshToken,
+}: PostRefreshTokenParams): Promise<PostRefreshTokenData> => {
   const { headers } = await api.post('/auth/refresh-token', { refreshToken });
 
-  window.localStorage.setItem(constants.LH_TOKEN_NAME, headers.authorization);
-
-  window.localStorage.setItem(
-    constants.LH_REFRESH_TOKEN_NAME,
-    headers['refresh-token']
-  );
+  return {
+    newToken: headers.authorization,
+    newRefreshToken: headers['refresh-token'],
+  };
 };
