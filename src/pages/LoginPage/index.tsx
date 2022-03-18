@@ -1,8 +1,17 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, Grid, TextField } from '@mui/material';
+import {
+  Backdrop,
+  Button,
+  CircularProgress,
+  Grid,
+  TextField,
+} from '@mui/material';
 import { Box } from '@mui/system';
+import axios from 'axios';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Logo from '../../components/Logo';
 import { useAuth } from '../../hooks/useAuth';
 import BasicLayout from '../../layouts/BasicLayout';
@@ -19,6 +28,8 @@ const LoginPage: React.FC = () => {
 
   const navigate = useNavigate();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -33,11 +44,23 @@ const LoginPage: React.FC = () => {
 
   const onSubmit = handleSubmit(async ({ email, password }) => {
     try {
+      setIsLoading(true);
+
       await signIn({ email, password });
 
       navigate(ROUTER_NAMES.HOME);
+
+      toast.success('Login realizado com sucesso');
     } catch (error) {
-      console.log(error);
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 401) {
+          toast.error('🔒 Email e/ou senha incorreto(s)');
+        }
+      } else {
+        toast.error('🐛 Algo inesperado aconteceu');
+      }
+    } finally {
+      setIsLoading(false);
     }
   });
 
@@ -118,6 +141,12 @@ const LoginPage: React.FC = () => {
         </Grid>
         <Grid item xs={false} sm={5} md={6} />
       </Grid>
+      <Backdrop
+        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={isLoading}
+      >
+        <CircularProgress color="secondary" />
+      </Backdrop>
     </BasicLayout>
   );
 };

@@ -27,12 +27,12 @@ api.interceptors.response.use(
   async (error) => {
     const status = error.response.status;
 
-    if (status === 401) {
-      try {
-        const refreshToken = localStorage.getItem(
-          constants.LH_REFRESH_TOKEN_NAME
-        )?.replaceAll('"', '');
+    const refreshToken = localStorage
+      .getItem(constants.LH_REFRESH_TOKEN_NAME)
+      ?.replaceAll('"', '');
 
+    if (status === 401 && refreshToken && refreshToken !== 'null') {
+      try {
         const { newToken, newRefreshToken } = await postRefreshToken({
           refreshToken,
         });
@@ -43,7 +43,7 @@ api.interceptors.response.use(
 
         return axios.request(error.config);
       } catch (err) {
-        console.log(err);
+        return Promise.reject(error);
       }
     }
 

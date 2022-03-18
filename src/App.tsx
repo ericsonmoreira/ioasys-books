@@ -5,6 +5,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { MainRoutes } from './routes';
 import { theme } from './theme';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const queryClient = new QueryClient();
@@ -18,6 +20,7 @@ function App() {
             <MainRoutes />
           </BrowserRouter>
         </ThemeProvider>
+        <ToastContainer position="top-center" />
       </QueryClientProvider>
     </AuthProvider>
   );
