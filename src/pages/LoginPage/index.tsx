@@ -1,13 +1,13 @@
-import { TextField, Typography } from '@mui/material';
-import { useForm } from 'react-hook-form';
-import Logo from '../../components/Logo';
-import BasicLayout from '../../layouts/BasicLayout';
-import Button from '@mui/material/Button';
 import { yupResolver } from '@hookform/resolvers/yup';
-import schema from './schema';
-import { useAuth } from '../../hooks/useAuth';
+import { TextField, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import Logo from '../../components/Logo';
+import { useAuth } from '../../hooks/useAuth';
+import BasicLayout from '../../layouts/BasicLayout';
 import { ROUTER_NAMES } from '../../routes/names';
+import schema from './schema';
 
 interface LoginPageFromData {
   email: string;
@@ -43,7 +43,8 @@ const LoginPage: React.FC = () => {
 
   return (
     <BasicLayout>
-      <Logo />
+      <Logo fill="#FFF" sx={{ width: '198px', height: '40px' }} />
+
       <form onSubmit={onSubmit}>
         <TextField label="Email" variant="standard" {...register('email')} />
         <Typography variant="overline">{errors.email?.message}</Typography>

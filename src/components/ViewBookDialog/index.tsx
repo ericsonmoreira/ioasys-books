@@ -18,7 +18,6 @@ interface ViewBookDialogProps extends DialogProps {
 const ViewBookDialog: React.FC<ViewBookDialogProps> = (props) => {
   const { book, ...rest } = props;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const matches = useMediaQuery('(max-width:740px)');
 
   return (
@@ -53,7 +52,7 @@ const ViewBookDialog: React.FC<ViewBookDialogProps> = (props) => {
             }}
           >
             <Box>
-              <Typography variant="h4">{book?.title}</Typography>
+              <Typography variant="h4" noWrap>{book?.title}</Typography>
               <Typography color="primary">
                 {book?.authors.join(', ') || 'Unknown Author'}
               </Typography>

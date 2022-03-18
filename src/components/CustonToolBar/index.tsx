@@ -1,14 +1,17 @@
 import LogoutIcon from '@mui/icons-material/Logout';
-import { Box, IconButton, Typography } from '@mui/material';
+import { Box, IconButton, Typography, useMediaQuery } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { ROUTER_NAMES } from '../../routes/names';
+import Logo from '../Logo';
 // import Logo from '../Logo';
 
 const CustonToolBar: React.FC = () => {
   const { user, signOut } = useAuth();
 
   const navigate = useNavigate();
+
+  const matches = useMediaQuery('(max-width:740px)');
 
   const handleLogout = () => {
     signOut();
@@ -25,15 +28,15 @@ const CustonToolBar: React.FC = () => {
         padding: 0,
       }}
     >
-      {/* <Logo /> */}
-      {/* TODO: colocar aqui o logo */}
-      <Typography component="div" sx={{ mr: 2 }}>
-        Bem vindo, {user?.name}!
-      </Typography>
+      <Logo fill="text.primary" sx={{ width: '198px', height: '40px' }} />
+
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Typography component="div" sx={{ mr: 2 }}>
-          Bem vindo, {user?.name}!
-        </Typography>
+        {!matches && (
+          <Typography component="div" sx={{ mr: 2 }}>
+            Bem vindo, {user?.name}!
+          </Typography>
+        )}
+
         <IconButton
           sx={{ border: 1, borderColor: 'rgba(51, 51, 51, 0.2)' }}
           onClick={handleLogout}

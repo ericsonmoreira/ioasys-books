@@ -12,4 +12,14 @@ export const theme = createTheme({
   typography: {
     fontFamily: 'Heebo',
   },
+  components: {
+    MuiDialog: {
+      styleOverrides: {
+        container: {
+          backgroundColor: 'rgba(0, 0, 0, 0.4)',
+          backdropFilter: 'blur(2px)',
+        },
+      },
+    },
+  },
 });
