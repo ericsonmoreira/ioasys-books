@@ -27,10 +27,6 @@ const HomePage: React.FC = () => {
     setOpenDialog(true);
   };
 
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
-  };
-
   const handleChangePage = (event: ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
@@ -79,7 +75,7 @@ const HomePage: React.FC = () => {
       <ViewBookDialog
         book={selectedBook}
         open={openDialog}
-        onClose={handleCloseDialog}
+        setOpen={setOpenDialog}
       />
     </BackGroundImageLayout>
   );

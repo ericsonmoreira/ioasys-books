@@ -2,26 +2,43 @@ import {
   Dialog,
   DialogContent,
   DialogProps,
+  DialogTitle,
+  IconButton,
   Typography,
-  useMediaQuery
+  useMediaQuery,
 } from '@mui/material';
 import { Box } from '@mui/system';
 import noImgBook from '../../assets/no-book-img.png';
 import { Book } from '../../services/getBooks';
 import CustonQuotesIcon from '../CustonQuotesIcon';
 import InformationRow from './InformationRow';
-
+import CloseIcon from '@mui/icons-material/Close';
+import { Dispatch, SetStateAction } from 'react';
 interface ViewBookDialogProps extends DialogProps {
   book: Book | null;
+  setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 const ViewBookDialog: React.FC<ViewBookDialogProps> = (props) => {
-  const { book, ...rest } = props;
+  const { book, setOpen, ...rest } = props;
 
   const matches = useMediaQuery('(max-width:740px)');
 
   return (
     <Dialog {...rest} maxWidth="md">
+      <DialogTitle
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
+        {book?.title}
+        <IconButton edge="end" onClick={() => setOpen(false)}>
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
+
       <DialogContent>
         <Box
           sx={{
@@ -52,7 +69,9 @@ const ViewBookDialog: React.FC<ViewBookDialogProps> = (props) => {
             }}
           >
             <Box>
-              <Typography variant="h4" noWrap>{book?.title}</Typography>
+              <Typography variant="h4" noWrap>
+                {book?.title}
+              </Typography>
               <Typography color="primary">
                 {book?.authors.join(', ') || 'Unknown Author'}
               </Typography>
