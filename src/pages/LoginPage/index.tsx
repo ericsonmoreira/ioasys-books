@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { TextField, Typography } from '@mui/material';
-import Button from '@mui/material/Button';
+import { Button, Grid, TextField } from '@mui/material';
+import { Box } from '@mui/system';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import Logo from '../../components/Logo';
@@ -43,24 +43,81 @@ const LoginPage: React.FC = () => {
 
   return (
     <BasicLayout>
-      <Logo fill="#FFF" sx={{ width: '198px', height: '40px' }} />
+      <Grid container component="main" sx={{ height: '100vh' }}>
+        <Grid
+          item
+          xs={12}
+          sm={7}
+          md={6}
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Box
+            component="form"
+            onSubmit={onSubmit}
+            sx={{
+              flex: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              padding: 2,
+            }}
+            maxWidth="400px"
+          >
+            <Logo
+              fill="#FFF"
+              sx={{ width: '200px', height: '46px', marginBottom: '50px' }}
+            />
 
-      <form onSubmit={onSubmit}>
-        <TextField label="Email" variant="standard" {...register('email')} />
-        <Typography variant="overline">{errors.email?.message}</Typography>
+            <TextField
+              label="Email"
+              variant="outlined"
+              margin="normal"
+              error={!!errors.email?.message}
+              helperText={errors.email?.message}
+              {...register('email')}
+            />
 
-        <TextField
-          label="Senha"
-          variant="standard"
-          type="password"
-          {...register('password')}
-        />
-        <Typography variant="overline">{errors.password?.message}</Typography>
-
-        <Button type="submit" variant="contained">
-          Entrar
-        </Button>
-      </form>
+            <TextField
+              label="Senha"
+              variant="outlined"
+              margin="normal"
+              type="password"
+              error={!!errors.password?.message}
+              helperText={errors.password?.message}
+              {...register('password')}
+            />
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                marginTop: '20px',
+              }}
+            >
+              <Button
+                type="submit"
+                variant="contained"
+                disableElevation
+                sx={{
+                  borderRadius: '44px',
+                  backgroundColor: '#FFF',
+                  color: '#B22E6F',
+                  ':hover': {
+                    backgroundColor: '#B22E6F',
+                    color: '#FFF',
+                  },
+                }}
+              >
+                Entrar
+              </Button>
+            </Box>
+          </Box>
+        </Grid>
+        <Grid item xs={false} sm={5} md={6} />
+      </Grid>
     </BasicLayout>
   );
 };

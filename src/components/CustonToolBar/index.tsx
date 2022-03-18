@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { ROUTER_NAMES } from '../../routes/names';
 import Logo from '../Logo';
-// import Logo from '../Logo';
 
 const CustonToolBar: React.FC = () => {
   const { user, signOut } = useAuth();
@@ -29,14 +28,13 @@ const CustonToolBar: React.FC = () => {
       }}
     >
       <Logo fill="text.primary" sx={{ width: '198px', height: '40px' }} />
-
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         {!matches && (
-          <Typography component="div" sx={{ mr: 2 }}>
-            Bem vindo, {user?.name}!
-          </Typography>
+          <Box sx={{ display: 'flex', mr: 2 }}>
+            <Typography sx={{ mr: 1 }}>Bem vindo,</Typography>
+            <Typography sx={{ fontWeight: 500 }}>{user?.name}!</Typography>
+          </Box>
         )}
-
         <IconButton
           sx={{ border: 1, borderColor: 'rgba(51, 51, 51, 0.2)' }}
           onClick={handleLogout}
